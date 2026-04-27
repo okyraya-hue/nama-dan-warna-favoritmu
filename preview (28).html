@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tes Warna Viral</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  color:white;
+  text-align:center;
+  background:url('https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17') no-repeat center;
+  background-size:cover;
+}
+
+.overlay{
+  background:rgba(0,0,0,0.65);
+  min-height:100vh;
+}
+
+/* LOGO */
+.logo{
+  width:140px;
+  margin-top:20px;
+  filter:drop-shadow(0 0 10px gold);
+  border-radius:20px;
+}
+
+/* HEADER */
+header{
+  padding:10px;
+  font-size:26px;
+  font-family:'Playfair Display',serif;
+  text-shadow:0 0 15px rgba(255,255,255,0.6);
+}
+
+.hero{
+  padding:10px 20px;
+}
+
+input{
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  width:200px;
+  text-align:center;
+}
+
+.colors{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:15px;
+  margin:30px;
+}
+
+.color-box{
+  width:90px;
+  height:90px;
+  border-radius:20px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.color-box:hover{
+  transform:scale(1.2);
+  box-shadow:0 0 25px white;
+}
+
+.result{
+  margin:20px auto;
+  padding:20px;
+  background:rgba(30,41,59,0.85);
+  border-radius:15px;
+  width:85%;
+  max-width:500px;
+  display:none;
+}
+
+.typing{
+  border-right:3px solid white;
+  white-space:nowrap;
+  overflow:hidden;
+  animation:typing 3s steps(40,end), blink 0.7s infinite;
+}
+
+@keyframes typing{
+  from{width:0}
+  to{width:100%}
+}
+
+@keyframes blink{
+  50%{border-color:transparent}
+}
+
+button{
+  margin:10px;
+  padding:10px 15px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.wa{background:#22c55e;color:white;}
+.copy{background:#3b82f6;color:white;}
+.img{background:#f59e0b;color:white;}
+.reset{background:#6366f1;color:white;}
+
+/* FOOTER */
+footer{
+  margin-top:50px;
+  padding:20px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(5px);
+}
+
+.footer-links a{
+  margin:0 10px;
+  color:#22c55e;
+  text-decoration:none;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay">
+
+<!-- LOGO (SUDAH DIGANTI) -->
+<img src="file_00000000921471f5b94c2207c8da3f83" class="logo">
+
+<header>✨ Tes Warna Lagi Viral!</header>
+
+<div class="hero">
+Masukkan namamu 👇<br><br>
+<input type="text" id="nama" placeholder="Nama kamu">
+<p>Pilih warna favoritmu</p>
+</div>
+
+<div class="colors">
+  <div class="color-box" style="background:red" onclick="pilih('merah')"></div>
+  <div class="color-box" style="background:blue" onclick="pilih('biru')"></div>
+  <div class="color-box" style="background:green" onclick="pilih('hijau')"></div>
+  <div class="color-box" style="background:yellow" onclick="pilih('kuning')"></div>
+  <div class="color-box" style="background:black" onclick="pilih('hitam')"></div>
+</div>
+
+<div id="hasil" class="result"></div>
+
+<button onclick="reset()" class="reset">Ulangi</button>
+
+<footer>
+  <p>🎨 PIONESTA ARIESTA</p>
+  <p>© 2026</p>
+
+  <div class="footer-links">
+    <a href="#" onclick="shareWA()">Share</a>
+    <a href="#" onclick="copyLink()">Copy Link</a>
+  </div>
+</footer>
+
+</div>
+
+<script>
+const arti = {
+  merah:"Kamu orang berani, penuh energi, dan suka tantangan.",
+  biru:"Kamu tenang, setia, dan bisa dipercaya.",
+  hijau:"Kamu damai, santai, dan suka keseimbangan.",
+  kuning:"Kamu ceria, kreatif, dan penuh ide.",
+  hitam:"Kamu elegan, misterius, dan kuat."
+};
+
+let hasilText="";
+
+function pilih(warna){
+  let nama = document.getElementById("nama").value || "Kamu";
+  let artiText = arti[warna];
+
+  hasilText = `${nama} memilih warna ${warna}. ${artiText}`;
+
+  document.getElementById("hasil").style.display="block";
+  document.getElementById("hasil").innerHTML = `
+    <h2>${nama}</h2>
+    <p class="typing">${artiText}</p>
+
+    <button class="wa" onclick="shareWA()">Share WA</button>
+    <button class="copy" onclick="copyLink()">Copy Link</button>
+    <button class="img" onclick="downloadGambar()">Jadi Gambar</button>
+  `;
+}
+
+function shareWA(){
+  window.open("https://wa.me/?text="+encodeURIComponent(hasilText));
+}
+
+function copyLink(){
+  navigator.clipboard.writeText(window.location.href);
+  alert("Link disalin!");
+}
+
+function downloadGambar(){
+  let canvas=document.createElement("canvas");
+  canvas.width=400;
+  canvas.height=300;
+  let ctx=canvas.getContext("2d");
+
+  ctx.fillStyle="#000";
+  ctx.fillRect(0,0,400,300);
+
+  ctx.fillStyle="white";
+  ctx.font="16px Poppins";
+  ctx.fillText(hasilText,20,150);
+
+  let link=document.createElement("a");
+  link.download="hasil.png";
+  link.href=canvas.toDataURL();
+  link.click();
+}
+
+function reset(){
+  document.getElementById("hasil").style.display="none";
+}
+</script>
+
+</body>
+</html>
