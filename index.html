@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>PIONESTA ARIESTA</title>
+<title>PIONESTA</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
@@ -88,7 +87,7 @@ input::placeholder{
   color:#ccc;
 }
 
-/* WARNA GRID */
+/* WARNA */
 .colors{
   display:flex;
   justify-content:center;
@@ -111,38 +110,21 @@ input::placeholder{
   transition:0.3s;
 }
 
-/* WARNA LAMA */
+/* WARNA */
 .merah{background:#ff0000; box-shadow:0 0 15px #ff0000;}
-.merah:hover{box-shadow:0 0 40px #ff0000;}
-
 .biru{background:#2563eb; box-shadow:0 0 15px #2563eb;}
-.biru:hover{box-shadow:0 0 40px #2563eb;}
-
 .hijau{background:#22c55e; box-shadow:0 0 15px #22c55e;}
-.hijau:hover{box-shadow:0 0 40px #22c55e;}
-
 .kuning{background:#facc15;color:black; box-shadow:0 0 15px #facc15;}
-.kuning:hover{box-shadow:0 0 40px #facc15;}
+.hitam{background:#111; box-shadow:0 0 15px #fff;}
 
-.hitam{background:#111; box-shadow:0 0 15px #ffffff;}
-.hitam:hover{box-shadow:0 0 40px #ffffff;}
-
-/* WARNA BARU */
 .ungu{background:#9333ea; box-shadow:0 0 15px #9333ea;}
-.ungu:hover{box-shadow:0 0 40px #9333ea;}
-
 .pink{background:#ec4899; box-shadow:0 0 15px #ec4899;}
-.pink:hover{box-shadow:0 0 40px #ec4899;}
-
 .orange{background:#f97316; box-shadow:0 0 15px #f97316;}
-.orange:hover{box-shadow:0 0 40px #f97316;}
+.putih{background:#f1f5f9;color:black; box-shadow:0 0 15px #fff;}
 
-.putih{
-  background:#f1f5f9;
-  color:black;
-  box-shadow:0 0 15px #ffffff;
+.card:hover{
+  transform:scale(1.1);
 }
-.putih:hover{box-shadow:0 0 40px #ffffff;}
 
 /* RESULT */
 .result{
@@ -188,8 +170,8 @@ footer{
 
 <img src="logo.png" class="logo">
 
-<h1>Tes Warna Lagi Viral ✨</h1>
-<div class="subtitle">Temukan kepribadianmu sekarang</div>
+<h1>Tes Warna Viral ✨</h1>
+<div class="subtitle">Cari tahu arti dan kombinasi warna terbaikmu</div>
 
 <div class="box">
   <div class="label">Masukkan namamu dulu</div>
@@ -216,36 +198,48 @@ footer{
 <button class="btn reset" onclick="reset()">Ulangi</button>
 
 <footer>
-<b>PIONESTA</b><br>
-
+<b>PIONESTA ARIESTA</b><br>
 Ikuti kami di TikTok<br>
 <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" class="tiktok-icon"><br>
-@pionesta27
+@pionesta
 </footer>
 
 </div>
 
 <script>
-const arti = {
-  merah:"Kamu berani dan penuh energi 🔥",
-  biru:"Kamu tenang dan bisa dipercaya 💙",
-  hijau:"Kamu damai dan santai 🌿",
-  kuning:"Kamu ceria dan kreatif 🌟",
-  hitam:"Kamu misterius dan elegan 🖤",
-
-  ungu:"Kamu kreatif dan penuh imajinasi 💜",
-  pink:"Kamu romantis dan penyayang 💗",
-  orange:"Kamu semangat dan optimis 🧡",
-  putih:"Kamu tulus dan sederhana 🤍"
+const dataWarna = {
+  merah:{arti:"Berani dan penuh energi 🔥", cocok:"Putih & hitam"},
+  biru:{arti:"Tenang dan setia 💙", cocok:"Putih & abu"},
+  hijau:{arti:"Damai dan santai 🌿", cocok:"Coklat & krem"},
+  kuning:{arti:"Ceria dan kreatif 🌟", cocok:"Hitam"},
+  hitam:{arti:"Misterius dan elegan 🖤", cocok:"Emas & putih"},
+  ungu:{arti:"Kreatif dan unik 💜", cocok:"Putih & silver"},
+  pink:{arti:"Romantis dan penyayang 💗", cocok:"Putih & abu"},
+  orange:{arti:"Semangat dan optimis 🧡", cocok:"Biru"},
+  putih:{arti:"Tulus dan sederhana 🤍", cocok:"Semua warna"},
+  emas:{arti:"✨ WARNA RAHASIA! Kamu sangat spesial dan beruntung 💎", cocok:"Hitam & putih"}
 };
 
 function pilih(warna){
   let nama = document.getElementById("nama").value || "Kamu";
 
+  let random = Math.random();
+  let hasil;
+
+  if(random < 0.05){
+    hasil = dataWarna["emas"];
+    document.getElementById("hasil").style.boxShadow="0 0 30px gold";
+  } else {
+    hasil = dataWarna[warna];
+    document.getElementById("hasil").style.boxShadow="none";
+  }
+
   document.getElementById("hasil").style.display="block";
   document.getElementById("hasil").innerHTML = `
     <h3>${nama}</h3>
-    <p>${arti[warna]}</p>
+    <p>${hasil.arti}</p>
+    <hr style="border-color:gold; margin:15px 0;">
+    <p><b>🎨 Cocok dipadukan dengan:</b><br>${hasil.cocok}</p>
   `;
 }
 
