@@ -24,7 +24,6 @@ body{
   position:relative;
 }
 
-/* TIKTOK */
 .tiktok{
   position:absolute;
   top:15px;
@@ -37,14 +36,12 @@ body{
   font-size:12px;
 }
 
-/* LOGO */
 .logo{
   width:140px;
   margin-top:30px;
   filter:drop-shadow(0 0 20px gold);
 }
 
-/* TITLE */
 h1{
   font-family:'Playfair Display',serif;
 }
@@ -53,7 +50,6 @@ h1{
   opacity:0.8;
 }
 
-/* INPUT */
 .box{
   margin:25px auto;
   padding:18px;
@@ -87,7 +83,6 @@ input::placeholder{
   color:#ccc;
 }
 
-/* WARNA */
 .colors{
   display:flex;
   justify-content:center;
@@ -110,7 +105,6 @@ input::placeholder{
   transition:0.3s;
 }
 
-/* WARNA */
 .merah{background:#ff0000; box-shadow:0 0 15px #ff0000;}
 .biru{background:#2563eb; box-shadow:0 0 15px #2563eb;}
 .hijau{background:#22c55e; box-shadow:0 0 15px #22c55e;}
@@ -126,7 +120,6 @@ input::placeholder{
   transform:scale(1.1);
 }
 
-/* RESULT */
 .result{
   margin:20px auto;
   padding:20px;
@@ -137,7 +130,6 @@ input::placeholder{
   display:none;
 }
 
-/* BUTTON */
 .btn{
   margin:5px;
   padding:10px 15px;
@@ -148,7 +140,6 @@ input::placeholder{
 
 .reset{background:#9333ea;}
 
-/* FOOTER */
 footer{
   margin-top:40px;
   border-top:1px solid gold;
@@ -195,6 +186,15 @@ footer{
 
 <div id="hasil" class="result"></div>
 
+<!-- SHARE -->
+<div id="shareBox" style="display:none; text-align:center; margin-top:15px;">
+  <button class="btn" style="background:#25D366;" onclick="shareWA()">📲 Share WhatsApp</button>
+  <button class="btn" style="background:#333;" onclick="copyLink()">🔗 Copy Link</button>
+  <p style="font-size:13px; margin-top:8px;">
+    Tag temanmu dan bandingkan hasilnya!
+  </p>
+</div>
+
 <button class="btn reset" onclick="reset()">Ulangi</button>
 
 <footer>
@@ -220,6 +220,8 @@ const dataWarna = {
   emas:{arti:"✨ WARNA RAHASIA! Kamu sangat spesial dan beruntung 💎", cocok:"Hitam & putih"}
 };
 
+let hasilText = "";
+
 function pilih(warna){
   let nama = document.getElementById("nama").value || "Kamu";
 
@@ -234,7 +236,11 @@ function pilih(warna){
     document.getElementById("hasil").style.boxShadow="none";
   }
 
+  hasilText = nama + " - " + hasil.arti + " | Cocok: " + hasil.cocok;
+
   document.getElementById("hasil").style.display="block";
+  document.getElementById("shareBox").style.display="block";
+
   document.getElementById("hasil").innerHTML = `
     <h3>${nama}</h3>
     <p>${hasil.arti}</p>
@@ -245,6 +251,17 @@ function pilih(warna){
 
 function reset(){
   document.getElementById("hasil").style.display="none";
+  document.getElementById("shareBox").style.display="none";
+}
+
+function shareWA(){
+  let text = "Aku baru coba tes warna 😆\n\n" + hasilText + "\n\nCoba juga:\n" + window.location.href;
+  window.open("https://wa.me/?text=" + encodeURIComponent(text));
+}
+
+function copyLink(){
+  navigator.clipboard.writeText(window.location.href);
+  alert("Link berhasil disalin!");
 }
 </script>
 
